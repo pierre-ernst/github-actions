@@ -2,7 +2,7 @@ This repository contains various GitHub actions that the Elastic team has develo
 
 To use these actions in your GitHub workfkflows, include them in the workflow configuration file step config.  For example:
 
-	steps:
+ 	steps:
           - name: Assign to project
 	    uses: elastic/github-actions/project-assigner@v1.0.0
 	    id: project_assigner
