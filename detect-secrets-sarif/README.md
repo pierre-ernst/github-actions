@@ -25,6 +25,8 @@ Some finding examples can be found on the [security tab](https://github.com/pier
 | `issue-count` | Number of issues found by detect-secrets (and converted by this action) |
 
 
+
+
 ## Workflow examples
 
 ### Import a checked in detect-secrets baseline file
@@ -42,7 +44,7 @@ See a [run workflow example](https://github.com/pierre-ernst/github-actions/blob
 
 
 ### Run detect-secrets as a PR check
-To scan new or updated files that are commited via a Pull Request, you can build a worflow to make sure no new hard-coded secrets are being merged:
+To scan new or updated files that are committed via a Pull Request, you can build a workflow to make sure no new hard-coded secrets are being merged:
 
 ![screenshot of a failed PR check](https://user-images.githubusercontent.com/18272293/100274148-f1b1e980-2f2b-11eb-9afd-89dffab05ebc.png)
 
