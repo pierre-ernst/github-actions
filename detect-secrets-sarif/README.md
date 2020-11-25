@@ -1,46 +1,37 @@
-![detect-secrets status](https://github.com/pierre-ernst/github-actions/workflows/Run%20detect-secrets%20baseline/badge.svg)
+# Detect-secrets sarif
 
-# secrets detector 
+![detect-secrets status](https://github.com/pierre-ernst/github-actions/workflows/Run%20detect-secrets%20baseline/badge.svg)[![Known Vulnerabilities](https://snyk.io/test/github/pierre-ernst/github-actions/badge.svg?targetFile=detect-secrets-sarif/package.json)](https://snyk.io/test/github/pierre-ernst/github-actions?targetFile=detect-secrets-sarif/package.json)
 
-A GitHub action that pushes detect-secrets findings to GitHub security tab
-
-## Requirements
-
-A GitHub secret named `MGH_TOKEN` must be created on the repo and contain a valid GitHub token for the repo to be monitored by detect-secrets.
-
-## Usage
-
-```yml
-on: 
-  pull_request:
-    types: [ready_for_review]
-
-jobs:
-  secrets_detector_job:
-    runs-on: ubuntu-latest
-    name: A job to push detect-secrets findings to GitHub
-    steps:
-    - name: push 
-      id: push
-      uses: elastic/github-actions/secrets-detector@v1.0.0 
-      with:
-        regex-title: "Issue Trigger - .+"
-      env:  
-        MGH_TOKEN: ${{ secrets.MGH_TOKEN }}  
-    - name: Get the output HTTP response code
-      run: echo "The HTTP response code was ${{ steps.push.outputs.http-response-code }}"
-
-```
+A GitHub action that converts detect-secrets [json output file](https://github.com/Yelp/detect-secrets/blob/master/test_data/baseline.file) to [sarif format](https://docs.oasis-open.org/sarif/sarif/v2.0/sarif-v2.0.html). This action is useful when combined with the [GitHub upload sarif action](https://github.com/github/codeql-action/tree/main/upload-sarif), to push detect-secrets finding to the security tab:
+![screenshot of GitHub security tab with detect-secrets findings](https://user-images.githubusercontent.com/18272293/100271283-3b4c0580-2f27-11eb-868b-2dc57efcaef2.png)
+Some example of findings can be found on the [security tab](https://github.com/pierre-ernst/github-actions/security) of this repo.
 
 ## Action inputs
 
 | Name | Description | Required |
 | --- | --- | ---|
-| `snyk-org-id` | Snyk org id (not the org slug), example 4a18d42f-0706-4ad0-b127-24078731fbed | **yes** |
+| `baseline-file-location` | Indicates whether the baseline file should be read from the local file system (`local`) or the repo (`repo`) | no, `repo` by default |
+| `baseline-file-path` | Path to the beseline file created by detect-secrets (either local file system path or location within the repo) | no, `detect-secrets.json` by default |
 
 ## Action outputs
 
 | Name | Description |
 | --- | ---|
-| `http-response-code` | HTTP response code returned by the GitHub API |
+| `sarif-file-path` | Absolute path to the local sarif file created by this action |
+| `issue-count` | Number of issues found by detect-secrets (and converted by this action) |
+
+## Workflow examples
+### Import a checked in detect-secrets baseline file
+See an [import workflow example](https://github.com/pierre-ernst/github-actions/blob/main/.github/workflows/import-detect-secrets-baseline-from-repo.yml) on this repo.
+
+### Trigger a new detect-secrets scan directly from your browser
+You can navigate to the Actions tab, select the `Run detect-secrets Baseline` workflow, click the _Run workflow_ button, and enter the required input fields.
+![screenshot of triggering a new scan from the browser](https://user-images.githubusercontent.com/18272293/100273095-3a68a300-2f2a-11eb-82be-2308c5b7daca.png)
+See a [run workflow example](https://github.com/pierre-ernst/github-actions/blob/main/.github/workflows/run-detect-secrets-baseline.yml) on this repo.
+
+### Run detect-secrets as a PR check
+To scan new or updated files that are commited via a Pull Request, you can build a worflow to make sure no new hard-coded secrets are being merged:
+![screenshot of a failed PR check](https://user-images.githubusercontent.com/18272293/100274148-f1b1e980-2f2b-11eb-9afd-89dffab05ebc.png)
+There are [examples of passed or failled PRs](https://github.com/pierre-ernst/github-actions/pulls) on this repo
+See a [PR check workflow example](https://github.com/pierre-ernst/github-actions/blob/main/.github/workflows/pr-detect-secrets.yml) on this repo.
 
