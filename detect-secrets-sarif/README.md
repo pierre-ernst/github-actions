@@ -6,7 +6,7 @@ A GitHub action that converts detect-secrets [json output file](https://github.c
 
 ![screenshot of GitHub security tab with detect-secrets findings](https://user-images.githubusercontent.com/18272293/100271283-3b4c0580-2f27-11eb-868b-2dc57efcaef2.png)
 
-Some finding examples can be found on the [security tab](../security/code-scanning?query=tool%3Adetect-secrets) of this repo.
+Some finding examples can be found on the [security tab](../../../security/code-scanning?query=tool%3Adetect-secrets) of this repo.
 
 
 ## Action inputs
@@ -40,7 +40,7 @@ You can navigate to the Actions tab, select the `Run detect-secrets Baseline` wo
 
 ![screenshot of triggering a new scan from the browser](https://user-images.githubusercontent.com/18272293/100273095-3a68a300-2f2a-11eb-82be-2308c5b7daca.png)
 
-See a [run workflow example](https://github.com/pierre-ernst/github-actions/blob/main/.github/workflows/run-detect-secrets-baseline.yml) on this repo.
+See a [run workflow example](../.github/workflows/run-detect-secrets-baseline.yml) on this repo.
 
 
 ### Run detect-secrets as a PR check
@@ -48,7 +48,7 @@ To scan new or updated files that are committed via a Pull Request, you can buil
 
 ![screenshot of a failed PR check](https://user-images.githubusercontent.com/18272293/100274148-f1b1e980-2f2b-11eb-9afd-89dffab05ebc.png)
 
-There are [examples of passed or failled PRs](../pulls) on this repo.
+There are [examples of passed or failled PRs](../../../pulls) on this repo.
 
 See a [PR check workflow example](../.github/workflows/pr-detect-secrets.yml) on this repo.
 
