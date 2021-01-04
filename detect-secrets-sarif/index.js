@@ -115,7 +115,7 @@ function convert(jsonInput) {
                         ruleId: ruleId,
                         level: 'error',
                         message: {
-                            text: 'Hard-coded ' + plugins[ruleId]
+                            text: `Hard-coded ${plugins[ruleId]}\t\t{"path":"${filePath}", "line_number:${f.line_number}, "hashed_secret":"${f.hashed_secret}"}`
                         },
                         locations: [
                             {
