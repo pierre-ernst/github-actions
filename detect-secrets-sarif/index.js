@@ -126,7 +126,7 @@ function convert(jsonInput) {
                                         uri: filePath
                                     },
                                     region: {
-                                        startLine: f.line_number
+                                        startLine: finding.line_number
                                     }
                                 }
                             }
