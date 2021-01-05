@@ -43,7 +43,7 @@ function convert(jsonInput) {
                 tool: {
                     driver: {
                         name: 'detect-secrets',
-                        semanticVersion: jsonInput.version,
+                        version: jsonInput.version,
                         informationUri: 'https://github.com/Yelp/detect-secrets',
                         rules: []
                     }
@@ -62,7 +62,7 @@ function convert(jsonInput) {
     }
 
     // setting runs[0].tool.driver.rules
-    jsonInput.plugins_used.forEach(function (plugin) {
+    jsonInput.plugins_used.forEach(plugin => {
 
         const rule = {
             id: plugin.name,
@@ -85,7 +85,7 @@ function convert(jsonInput) {
 
             rule.name = `${plugin.name} detects hard-coded ${plugins[plugin.name]}`
             rule.shortDescription = {
-                text: 'Hard-coded ' + plugins[plugin.name]
+                text: '(rule.shortDescription) Hard-coded ' + plugins[plugin.name]
             };
 
             Object.keys(plugin).forEach(function (key) {
@@ -103,19 +103,21 @@ function convert(jsonInput) {
     });
 
     // setting runs[0].results
-    Object.keys(jsonInput.results).forEach(function (filePath) {
+    Object.keys(jsonInput.results).forEach(filePath => {
 
-        jsonInput.results[filePath].forEach(function finding(f) {
-            if (!f.is_verified) {
+        jsonInput.results[filePath].forEach(finding => {
+            if (!finding.is_verified) {
 
-                const ruleId = getKeyByValue(plugins, f.type);
+                const ruleId = getKeyByValue(plugins, finding.type);
 
                 if (plugins.hasOwnProperty(ruleId)) {
                     const ruleFinding = {
                         ruleId: ruleId,
                         level: 'error',
                         message: {
-                            text: `Hard-coded ${plugins[ruleId]}\n{"path":"${filePath}", "line_number:${f.line_number}, "hashed_secret":"${f.hashed_secret}"}`
+                            text: '(finding.message.text) Hard-coded ' + plugins[ruleId] +
+                                '\n{"path":"' + filePath + '", "line_number:' + finding.line_number +
+                                ', "hashed_secret":"' + finding.hashed_secret + '"}'
                         },
                         locations: [
                             {
