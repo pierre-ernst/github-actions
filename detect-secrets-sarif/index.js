@@ -85,7 +85,7 @@ function convert(jsonInput) {
 
             rule.name = `${plugin.name} detects hard-coded ${plugins[plugin.name]}`
             rule.shortDescription = {
-                text: '(rule.shortDescription) Hard-coded ' + plugins[plugin.name]
+                text: 'Hard-coded ' + plugins[plugin.name]
             };
 
             Object.keys(plugin).forEach(function (key) {
@@ -115,9 +115,7 @@ function convert(jsonInput) {
                         ruleId: ruleId,
                         level: 'error',
                         message: {
-                            text: '(finding.message.text) Hard-coded ' + plugins[ruleId] +
-                                '\n{"path":"' + filePath + '", "line_number:' + finding.line_number +
-                                ', "hashed_secret":"' + finding.hashed_secret + '"}'
+                            text: `Hard-coded ${plugins[ruleId]}` ,
                         },
                         locations: [
                             {
